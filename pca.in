@@ -1,0 +1,20 @@
+parm *prmtop
+trajin *nc
+
+rms first @CA
+
+average crdset AVG
+run
+
+rms ref AVG @CA
+
+matrix covar name MyMatrix @CA
+
+createcrd CRD1
+run
+
+runanalysis diagmatrix MyMatrix vecs 2 name MyEvecs
+
+crdaction CRD1 projection evecs MyEvecs \
+    @CA \
+    out PCA.dat beg 1 end 2
